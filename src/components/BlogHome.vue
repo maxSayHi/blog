@@ -1,27 +1,48 @@
 <script>
-  import { butter } from '@/buttercms'
-  export default {
-    name: 'blog-home',
-    data() {
-      return {
-        page_title: 'Blog',
-        posts: []
-      }
-    },
-    methods: {
-      getPosts() {
-        butter.post.list({
+import Butter from "buttercms";
+const butter = Butter("db3c4e045e3e7aad1109bf589f530e8d093713a4");
+export default {
+  name: "blog-home",
+  data() {
+    return {
+      page_title: "Blog",
+      posts: []
+    };
+  },
+  methods: {
+    getPosts() {
+      butter.post
+        .list({
           page: 1,
           page_size: 10
-        }).then((res) => {
-          this.posts = res.data.data
         })
-      }
+        .then(res => {
+          this.posts = res.data.data;
+        });
     },
-    created() {
-      this.getPosts()
+    getCategories() {
+      butter.category.list().then(res => {
+        console.log("List of Categories:");
+        console.log(res.data.data);
+      });
+    },
+    getPostsByCategory() {
+      butter.category
+        .retrieve("example-category", {
+          include: "recent_posts"
+        })
+        .then(res => {
+          console.log("Posts with specific category:");
+          console.log(res);
+        });
     }
+  },
+  created() {
+    this.getPosts();
+    this.getCategories()
+    this.getPostsByCategory()
   }
+};
 </script>
 
 <template>

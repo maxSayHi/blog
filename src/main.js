@@ -1,22 +1,19 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import BlogHome from '@/components/BlogHome'
-import BlogPost from '@/components/BlogPost'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Routers from './router';
+import App from './app.vue';
 
-Vue.use(Router)
+Vue.use(VueRouter);
 
-export default new Router({
-  mode: 'history',
-  routes: [
-    {
-      path: '/blog/',
-      name: 'blog-home',
-      component: BlogHome
-    },
-    {
-      path: '/blog/:slug',
-      name: 'blog-post',
-      component: BlogPost
-    }
-  ]
-})
+// 路由配置
+const RouterConfig = {
+    mode: 'history',
+    routes: Routers
+};
+const router = new VueRouter(RouterConfig);
+
+new Vue({
+    el: '#app',
+    router: router,
+    render: h => h(App)
+});

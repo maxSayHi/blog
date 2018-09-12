@@ -1,5 +1,6 @@
 <script>
-  import { butter } from '@/buttercms'
+  import Butter from 'buttercms';
+  const butter = Butter('db3c4e045e3e7aad1109bf589f530e8d093713a4');
   export default {
     name: 'blog-post',
     data() {
